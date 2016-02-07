@@ -26,7 +26,7 @@ function send_ajax_request(e) {
       console.log(val);
       $.ajax({
         type: "GET",
-        url: "http://dmartin.org:8205",
+        url: "/mc-handler",
         dataType: "xml",
         data: {
             url: "http://dmartin.org:8205",

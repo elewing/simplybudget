@@ -22,7 +22,7 @@ import jinja2
 import requests
 import urllib
 from google.appengine.api import urlfetch
-from xml.etree import ElementTree
+from parserXML import parseXML
 
 import statement_datastore as sds
 
@@ -59,15 +59,20 @@ class MasterCardHandler(webapp2.RequestHandler):
         try:
             if(result.status_code == 200):
                 logging.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                category = parseXML(result.content)
+                logging.info("CATEGORY: " + category)
             else:
                 logging.info("Error: " + str(result.status_code))
         except urlfetch.InvalidURLError:
             logging.info("INVALID URL")
         except urlfetch.DownloadError:
             logging.info("Server cannot be contacted")
-        logging.info(result.content)
+
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ("/mc-handler", MasterCardHandler)
 ], debug=True)
+
+#parser
