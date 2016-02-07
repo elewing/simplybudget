@@ -4,6 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="budgeting.css" rel="stylesheet">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -25,8 +26,8 @@
       <!-- center -->
       <div class="col-md-6 selection-screen">
          <div class="panel panel-default">
-            <p> Welcome! Select your budget statment from the dropdown below. </p>
-            <form dropStatement>
+            <p id="welcome"> Welcome! Select your budget statment from the dropdown below. </p>
+            <form class="dropStatement">
                <select class="c-select">
                  <option selected>Choose your bank statement:</option>
                  <option value="1" data-file="statement1">Statement 1</option>

@@ -1,7 +1,7 @@
 body {
    padding-top: 40px;
    /*background-color: #40BADB !important;*/
-   background-color: #0391AC !important;
+   background-color: #4BB49A !important;
 }
 
 .panel-title {
@@ -13,36 +13,28 @@ body {
    background-color: black;
 }
 #sign-in:hover {
-   background-color:#9C9C9C;
+   background-color:#02785A;
 }
 
 #register  {
    font-color: black;
 }
 
-.navbar-default {
-   border-color: #FA8573 !important;
-   border-top-width: 3px !important;
-   /*border-right-width: 3px !important;
-   border-left-width: 3px !important;
-   border-bottom-width:3px !important;*/
-   background-color: #FFFFFF !important;
-
-}
+/*Editing the navbar buttons*/
 .navbar-right {
-   padding-right: 30px;
+   padding-right: 20px;
 }
 
 .btn-default {
-   background-color: #1EB1CD !important;
+   background-color: #02785A !important;
    border-width: 0px !important;
 }
 
 .panel-default > .panel-heading {
-   background-color: #1EB1CD !important;
+   background-color: #02785A !important;
 }
 .panel-default {
    background-color: #FFFFFF !important;
    border-width: 3px !important;
-   border-color: #1EB1CD !important;
+   border-color: #02785A !important;
 }
