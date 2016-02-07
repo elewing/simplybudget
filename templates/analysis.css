@@ -1,7 +1,48 @@
 body {
-   padding-top: 20px;
+   padding-top: 40px;
+   /*background-color: #40BADB !important;*/
+   background-color: #0391AC !important;
 }
 
 .panel-title {
    text-align: center;
+}
+
+/*This is used to change the sign in button on the login page. Might want to change to an id*/
+#sign-in {
+   background-color: black;
+}
+#sign-in:hover {
+   background-color:#9C9C9C;
+}
+
+#register  {
+   font-color: black;
+}
+
+.navbar-default {
+   border-color: #FA8573 !important;
+   border-top-width: 3px !important;
+   /*border-right-width: 3px !important;
+   border-left-width: 3px !important;
+   border-bottom-width:3px !important;*/
+   background-color: #FFFFFF !important;
+
+}
+.navbar-right {
+   padding-right: 30px;
+}
+
+.btn-default {
+   background-color: #1EB1CD !important;
+   border-width: 0px !important;
+}
+
+.panel-default > .panel-heading {
+   background-color: #1EB1CD !important;
+}
+.panel-default {
+   background-color: #FFFFFF !important;
+   border-width: 3px !important;
+   border-color: #1EB1CD !important;
 }
