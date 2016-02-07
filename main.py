@@ -73,16 +73,46 @@ class MasterCardHandler(webapp2.RequestHandler):
         except urlfetch.DownloadError:
             logging.info("Server cannot be contacted")
 
+        self.redirect("/analysis")
+
 class SettingsHandler(webapp2.RequestHandler):
     def get(self):
         main_template = JINJA_ENVIRONMENT.get_template("templates/settings.html")
         self.response.write(main_template.render())
 
+class AnalysisHandler(webapp2.RequestHandler):
+    def get(self):
+        template_header = JINJA_ENVIRONMENT.get_template('templates/header.html')
+        template_footer = JINJA_ENVIRONMENT.get_template('templates/footer.html')
 
+        self.response.write(template_header.render())
+
+        template_values = {}
+        template_values["entries"] = []
+        price_list = {}
+        entries = sds.Statement.query().fetch()
+        for entry in entries:
+            if price_list.has_key(entry.category):
+                price_list[entry.category] = price_list[entry.category] + entry.price
+            else:
+                price_list[entry.category] = entry.price
+        for key, value in price_list.iteritems():
+            percent = value//500*100
+            new_entry = {
+                "category_name": key,
+                "percent_spent": percent
+            }
+            new_entry["entry_id"] = entry.key.urlsafe()
+            template_values["entries"].append(new_entry)
+        template = JINJA_ENVIRONMENT.get_template('templates/progressBarTemplate.html')
+        self.response.write(template.render(template_values))
+        # Close the page
+        self.response.write(template_footer.render())
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ("/mc-handler", MasterCardHandler),
-    ("/settings", SettingsHandler)
+    ("/settings", SettingsHandler),
+    ("/analysis", AnalysisHandler)
 ], debug=True)
 
 #parser
