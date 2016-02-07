@@ -7,12 +7,25 @@ function send_ajax_request(e) {
   var statementId = form.find("#statementId")
   var statement = request_statement(statementId);
   for (var purchase in statement) {
-    var queryUrl = "http://dmartin.org:8205" + purchase[1];
     $.ajax({
-      url: "http://dmartin.org:8205" + purchase[1],
-      dataType: "xml"
+      url: "http://dmartin.org:8205",
+      type: "GET",
+      dataType: "xml",
+      data: {MerchantId:purchase[1]}
     }).done (function (xml) {
-      xmlParser(xml);
+      var category = xmlParser(xml);
+      $.ajax({
+        type: "POST",
+        method: "POST",
+        url: "/save-statement",
+        data: {
+          "statement_name": statementId,
+          "date": purchase[0],
+          "merchant_id": purchase[1],
+          "price": purchase[2],
+          "category": category
+        }
+      })
     })
   }
 }
