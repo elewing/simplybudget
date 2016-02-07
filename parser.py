@@ -36,7 +36,7 @@ def checkCategory(category):
     if category in entertainment:
         answer = "entertainment"
     elif category in dining:
-        answer = "dining"
+        answer = "dining_out"
     elif category in electronics:
         answer = "electronics"
     elif category in travel:
@@ -46,5 +46,5 @@ def checkCategory(category):
     elif category == "WEAR":
         answer = "clothing"
     else:
-        answer = ""
+        answer = "rainy_day"
     return answer
