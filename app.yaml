@@ -10,10 +10,10 @@ handlers:
   upload: favicon\.ico
 
 - url: /scripts
-  static_dir: scripts/
+  static_dir: scripts
 
 - url: /data
-  static_dir: data/
+  static_dir: data
 
 - url: /save-statement.*
   script: statement_datastore.app
@@ -27,3 +27,6 @@ libraries:
 
 - name: jinja2
   version: latest
+#
+# - name: requests
+#   version: latest

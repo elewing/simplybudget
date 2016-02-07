@@ -14,10 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import appengine_config
 import webapp2
 import logging
 import os
 import jinja2
+import requests
+import urllib
+from google.appengine.api import urlfetch
+from xml.etree import ElementTree
 
 import statement_datastore as sds
 
@@ -30,8 +35,39 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         main_template = JINJA_ENVIRONMENT.get_template("templates/budgeting.html")
-        self.response.write(template.render())
+        self.response.write(main_template.render())
+
+class MasterCardHandler(webapp2.RequestHandler):
+    def get(self):
+        arguments = self.request.GET.items()
+        url = arguments[0][1] + "/merchantid/v1/merchantid"
+        date = arguments[1][1]
+        merchant_id = arguments[2][1]
+        price = arguments[3][1]
+
+        field = {
+            "Format": "XML",
+            "MerchantId": merchant_id
+        }
+        #field = "/merchantid/v1/merchantid?Format=XML&MerchantId=" + merchant_id
+        form_data = urllib.urlencode(field)
+        logging.info("-------------------" + url + "?" + form_data + "------------")
+        result = urlfetch.fetch(
+            url = url + "?" + form_data,
+            deadline=10
+        )
+        try:
+            if(result.status_code == 200):
+                logging.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            else:
+                logging.info("Error: " + str(result.status_code))
+        except urlfetch.InvalidURLError:
+            logging.info("INVALID URL")
+        except urlfetch.DownloadError:
+            logging.info("Server cannot be contacted")
+        logging.info(result.content)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
+    ("/mc-handler", MasterCardHandler)
 ], debug=True)

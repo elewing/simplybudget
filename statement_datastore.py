@@ -12,7 +12,7 @@ class Statement(ndb.Model):
     # id of the merchant store
     merchant_id = ndb.StringProperty(required = True)
     # price of item
-    price = ndb.DoubleProperty(required = True)
+    price = ndb.FloatProperty(required = True)
     # category of of the product
     category = ndb.StringProperty(required = True)
 
