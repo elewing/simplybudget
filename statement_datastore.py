@@ -34,5 +34,5 @@ class SaveStatementHandler(webapp2.RequestHandler):
         new_statement.put()
 
 app = webapp2.WSGIApplication([
-    ("save-statement", SaveStatementHandler)
+    ("/save-statement", SaveStatementHandler)
 ], debug = True)

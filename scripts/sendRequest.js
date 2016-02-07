@@ -2,6 +2,20 @@ $(document).ready(function(){
   $("#form_submit").click(send_ajax_request);
 });
 
+function sendBudget(e) {
+  $.ajax({
+    type: "POST",
+    method: "POST",
+    url: "/save-userinfo",
+    data: {
+      "category_name": e.id,
+      "limit_amount": e.value
+    }
+  }).done(function() {
+    console.log("Complete!");
+  })
+}
+
 function send_ajax_request(e) {
   var form = $(e.currentTarget.parentElement);
   var statementElement = form.find(".c-select option:selected");
@@ -12,7 +26,7 @@ function send_ajax_request(e) {
       console.log(val);
       $.ajax({
         type: "GET",
-        url: "/mc-handler",
+        url: "http://dmartin.org:8205",
         dataType: "xml",
         data: {
             url: "http://dmartin.org:8205",
