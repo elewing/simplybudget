@@ -1,5 +1,5 @@
-.body {
-   background-color: blue !important;
+body {
+   background-color: #4BB49A;
 }
 
 .selection-screen {
@@ -7,5 +7,22 @@
 }
 
 .dropStatement {
-   mergin-left: 50px !important;
+   margin-left: 80px !important;
+   padding-bottom: 10px;
+   padding-top: 5px;
 }
+
+#form_submit {
+   margin-left: 2em;
+   padding-top: 0px;
+   height: 1.5em;
+   background-color: #4BB49A;
+}
+
+#welcome {
+   padding-top: 10px;
+   text-align: center;
+}
+/*.panel {
+   background-color: #4BB49A;
+}*/

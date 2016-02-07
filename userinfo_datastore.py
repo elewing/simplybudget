@@ -17,7 +17,7 @@ class SaveInformationHandler(webapp2.RequestHandler):
     def post(self):
         # account_name = self.request.get("account_name")
         category_name = self.request.get("category_name")
-        limit_amount = self.request.get("limit_amount")
+        limit_amount = eval(self.request.get("limit_amount"))
 
         logging.info("IN THE SAVE HANDLER")
         #Add limit confirmation here? Ask Youyou
