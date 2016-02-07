@@ -15,11 +15,23 @@
 # limitations under the License.
 #
 import webapp2
+import logging
+import os
+import jinja2
+
+import statement_datastore as sds
+
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions = ['jinja2.ext.autoescape'],
+    autoescape = True
+)
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        main_template = JINJA_ENVIRONMENT.get_template("templates/budgeting.html")
+        self.response.write(template.render())
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
 ], debug=True)

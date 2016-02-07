@@ -6,7 +6,7 @@ import re
 
 class Statement(ndb.Model):
     #name of the account
-    account = ndb.StringProperty(required = True)
+    statement_name = ndb.StringProperty(required = True)
     # date
     date = ndb.StringProperty(required = True)
     # id of the merchant store
@@ -18,14 +18,14 @@ class Statement(ndb.Model):
 
 class SaveStatementHandler(webapp2.RequestHandler):
     def post(self):
-        account_name = self.request.get("account_name")
+        statement_name = self.request.get("statement_name")
         date = self.request.get("date")
         merchant_id = self.request.get("merchant_id")
         price_amount = self.request.get("price_amount")
         category = self.request.get("category")
 
         new_statement = Statement(
-            account = account_name,
+            statement_name = statement_name,
             date = date,
             merchant_id = merchant_id,
             price = price_amount,

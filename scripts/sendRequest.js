@@ -3,29 +3,39 @@ $(document).ready(function(){
 });
 
 function send_ajax_request(e) {
+  _this = this;
   var form = (e.currentTarget.parentElement);
-  var statementId = form.find("#statementId")
-  var statement = request_statement(statementId);
-  for (var purchase in statement) {
-    $.ajax({
-      url: "http://dmartin.org:8205",
-      type: "GET",
-      dataType: "xml",
-      data: {MerchantId:purchase[1]}
-    }).done (function (xml) {
-      var category = xmlParser(xml);
+  var statementName = form.find(".dropdown-menu option:selected").val();
+
+  var statementJSON = $.getJSON("/data/" + statementName, function(data){
+    $.each(data, function(key, val){
+      __this = this;
+      //do an ajax
       $.ajax({
-        type: "POST",
-        method: "POST",
-        url: "/save-statement",
+        type: "GET",
+        url = "http://dmartin.org:8205",
+        dataType: "xml",
         data: {
-          "statement_name": statementId,
-          "date": purchase[0],
-          "merchant_id": purchase[1],
-          "price": purchase[2],
-          "category": category
+          "MerchantId": val[1]
         }
-      })
-    })
-  }
+      }).done(function(xml){
+        var category = xmlParser(xml);
+        console.log(val[0]);
+        $.ajax({
+          type: "POST",
+          method: "POST",
+          url: "/save-post",
+          data: {
+            "statement_name": statementName,
+            "date": val[0],
+            "merchant_id": val[1],
+            "price_amount": val[2],
+            "category": category
+          }
+        }).done(function(e){
+          console.log("Done!");
+        });
+      });
+    });
+  });
 }
