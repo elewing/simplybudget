@@ -18,6 +18,9 @@ handlers:
 - url: /save-statement.*
   script: statement_datastore.app
 
+- url: /save-userinfo.*
+  script: userinfo_datastore.app
+
 - url: .*
   script: main.app
 
