@@ -15,6 +15,12 @@ handlers:
 - url: /data
   static_dir: data
 
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /font-awesome-4.5.0
+  static_dir: font-awesome-4.5.0
+
 - url: /save-statement.*
   script: statement_datastore.app
 

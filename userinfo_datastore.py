@@ -21,15 +21,15 @@ class SaveInformationHandler(webapp2.RequestHandler):
 
         logging.info("IN THE SAVE HANDLER")
         # q = UserInformation.query().fetch()
-        q = ndb.GqlQuery("SELECT * FROM UserInformation " +
-                        "WHERE category = " + category_name).fetch())
-        if len(q) == 0: 
-            new_userinfo =  UserInformation(
-                # account = account_name,
-                category = category_name,
-                limit = limit_amount
-            )
-            new_userinfo.put()
+        # q = ndb.GqlQuery("SELECT * FROM UserInformation " +
+        #                 "WHERE category = " + category_name).fetch())
+        # if len(q) == 0:
+        new_userinfo =  UserInformation(
+            # account = account_name,
+            category = category_name,
+            limit = limit_amount
+        )
+        new_userinfo.put()
 
 app = webapp2.WSGIApplication([
     ("/save-userinfo", SaveInformationHandler)

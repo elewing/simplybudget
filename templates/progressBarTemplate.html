@@ -3,21 +3,21 @@
       <div class="row">
          <div class="col-md-1">
             <div class="media-left media-top">
-               <span title="Dining Out" id="{{entry.category_name}}"<i class="fa fa-cutlery fa-2x"></i>></span>
+               <span title="Dining Out" id="{{entry.category_name}}"<i class="fa fa-{{entry.category_name}} fa-2x"></i></span>
             </div>
       </div>
       <div class="col-md-9">
       <div class="media-body">
          <div class="progress">
-            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: " + {{entry.percent_spent}} + "%">
+            <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width: {{entry.percent_spent}}%">
                <span class="sr-only">60% (Warning)</span>
             </div>
          </div>
       </div>
       </div>
-      <div class="col-md-2">
-         $Data
-      </div>
+      <!-- <div class="col-md-2"> -->
+         ${{entry.total_amount}}/{{entry.budget}}
+      <!-- </div> -->
 
 
    </div>

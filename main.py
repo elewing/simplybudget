@@ -23,14 +23,19 @@ import requests
 import urllib
 from google.appengine.api import urlfetch
 from parserXML import parseXML
+from emailsend import mailing
 
 import statement_datastore as sds
+import userinfo_datastore as ui_ds
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader = jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions = ['jinja2.ext.autoescape'],
     autoescape = True
 )
+categoryIcons = {"dining_out": "cutlery", "rainy_day":"cloud",
+                "groceries":"shopping-cart", "travel":"suitcase",
+                "entertainment":"film", "electronics":"gamepad"}
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -97,10 +102,14 @@ class AnalysisHandler(webapp2.RequestHandler):
             else:
                 price_list[entry.category] = entry.price
         for key, value in price_list.iteritems():
-            percent = value//500*100
+            budget = ui_ds.UserInformation.query(ui_ds.UserInformation.category == key).fetch()[0].limit
+            logging.info(budget)
+            percent = value/budget*100
             new_entry = {
-                "category_name": key,
-                "percent_spent": percent
+                "category_name": categoryIcons[key],
+                "percent_spent": percent,
+                "total_amount": value,
+                "budget": budget
             }
             new_entry["entry_id"] = entry.key.urlsafe()
             template_values["entries"].append(new_entry)
@@ -108,11 +117,13 @@ class AnalysisHandler(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
         # Close the page
         self.response.write(template_footer.render())
+
+        #mailing()
+
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ("/mc-handler", MasterCardHandler),
     ("/settings", SettingsHandler),
     ("/analysis", AnalysisHandler)
 ], debug=True)
-
 #parser
