@@ -12,7 +12,7 @@ class Statement(ndb.Model):
     # id of the merchant store
     merchant_id = ndb.StringProperty(required = True)
     # price of item
-    price = ndb.DoubleProperty(required = True)
+    price = ndb.FloatProperty(required = True)
     # category of of the product
     category = ndb.StringProperty(required = True)
 
@@ -34,5 +34,5 @@ class SaveStatementHandler(webapp2.RequestHandler):
         new_statement.put()
 
 app = webapp2.WSGIApplication([
-    ("save-statement", SaveStatementHandler)
+    ("/save-statement", SaveStatementHandler)
 ], debug = True)
