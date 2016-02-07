@@ -20,14 +20,16 @@ class SaveInformationHandler(webapp2.RequestHandler):
         limit_amount = eval(self.request.get("limit_amount"))
 
         logging.info("IN THE SAVE HANDLER")
-        #Add limit confirmation here? Ask Youyou
-
-        new_userinfo =  UserInformation(
-            # account = account_name,
-            category = category_name,
-            limit = limit_amount
-        )
-        new_userinfo.put()
+        # q = UserInformation.query().fetch()
+        q = ndb.GqlQuery("SELECT * FROM UserInformation " +
+                        "WHERE category = " + category_name).fetch())
+        if len(q) == 0: 
+            new_userinfo =  UserInformation(
+                # account = account_name,
+                category = category_name,
+                limit = limit_amount
+            )
+            new_userinfo.put()
 
 app = webapp2.WSGIApplication([
     ("/save-userinfo", SaveInformationHandler)
