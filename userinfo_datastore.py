@@ -19,6 +19,7 @@ class SaveInformationHandler(webapp2.RequestHandler):
         category_name = self.request.get("category_name")
         limit_amount = self.request.get("limit_amount")
 
+        logging.info("IN THE SAVE HANDLER")
         #Add limit confirmation here? Ask Youyou
 
         new_userinfo =  UserInformation(

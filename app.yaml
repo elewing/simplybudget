@@ -21,6 +21,9 @@ handlers:
 - url: /save-userinfo.*
   script: userinfo_datastore.app
 
+- url: /settings
+  script: main.app
+
 - url: .*
   script: main.app
 

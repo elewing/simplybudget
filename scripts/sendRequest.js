@@ -3,13 +3,15 @@ $(document).ready(function(){
 });
 
 function sendBudget(e) {
+  console.log(e.id);
+  console.log(e.value);
   $.ajax({
     type: "POST",
     method: "POST",
     url: "/save-userinfo",
     data: {
       "category_name": e.id,
-      "limit_amount": e.value
+      "limit_amount": parseInt(e.value)
     }
   }).done(function() {
     console.log("Complete!");
@@ -32,7 +34,8 @@ function send_ajax_request(e) {
             url: "http://dmartin.org:8205",
             date: val[0],
             merchantid: val[1],
-            price: val[2]
+            price: val[2],
+            statement_name: statementName
         }
       });
     });

@@ -44,23 +44,28 @@ class MasterCardHandler(webapp2.RequestHandler):
         date = arguments[1][1]
         merchant_id = arguments[2][1]
         price = arguments[3][1]
-
+        statement_name = arguments[4][1]
         field = {
             "Format": "XML",
             "MerchantId": merchant_id
         }
         #field = "/merchantid/v1/merchantid?Format=XML&MerchantId=" + merchant_id
         form_data = urllib.urlencode(field)
-        logging.info("-------------------" + url + "?" + form_data + "------------")
         result = urlfetch.fetch(
             url = url + "?" + form_data,
             deadline=10
         )
         try:
             if(result.status_code == 200):
-                logging.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 category = parseXML(result.content)
-                logging.info("CATEGORY: " + category)
+                new_userinfo = sds.Statement(
+                    statement_name = statement_name,
+                    date = date,
+                    merchant_id = merchant_id,
+                    price = float(price),
+                    category = category
+                )
+                new_userinfo.put()
             else:
                 logging.info("Error: " + str(result.status_code))
         except urlfetch.InvalidURLError:
@@ -68,11 +73,16 @@ class MasterCardHandler(webapp2.RequestHandler):
         except urlfetch.DownloadError:
             logging.info("Server cannot be contacted")
 
+class SettingsHandler(webapp2.RequestHandler):
+    def get(self):
+        main_template = JINJA_ENVIRONMENT.get_template("templates/settings.html")
+        self.response.write(main_template.render())
 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ("/mc-handler", MasterCardHandler)
+    ("/mc-handler", MasterCardHandler),
+    ("/settings", SettingsHandler)
 ], debug=True)
 
 #parser
